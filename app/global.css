@@ -24,6 +24,7 @@
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
   }
+
   html {
     color-scheme: dark;
   }
@@ -56,7 +57,7 @@ html {
   content: '#';
 }
 
-.prose *:hover > .anchor {
+.prose *:hover>.anchor {
   @apply visible;
 }
 
@@ -115,7 +116,7 @@ html {
   @apply list-decimal pl-6;
 }
 
-.prose > :first-child {
+.prose> :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
@@ -126,8 +127,10 @@ pre::-webkit-scrollbar {
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Remove Safari input shadow on mobile */
@@ -147,4 +150,158 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+/* Floating Shapes Animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+
+  75% {
+    transform: translateY(-30px) rotate(270deg);
+  }
+}
+
+@keyframes float-card {
+
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+
+  25% {
+    transform: translateY(-8px) translateX(4px);
+  }
+
+  50% {
+    transform: translateY(-4px) translateX(-2px);
+  }
+
+  75% {
+    transform: translateY(-12px) translateX(6px);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    box-shadow: 0 0 20px rgba(71, 163, 243, 0.2);
+  }
+
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 30px rgba(71, 163, 243, 0.4);
+  }
+}
+
+/* Floating background shapes */
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(71, 163, 243, 0.1), rgba(71, 163, 243, 0.05));
+  animation: float 8s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+  border-radius: 50%;
+}
+
+.shape-2 {
+  width: 60px;
+  height: 60px;
+  top: 20%;
+  right: 15%;
+  animation-delay: 1.5s;
+  border-radius: 20px;
+  transform: rotate(45deg);
+}
+
+.shape-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 3s;
+  border-radius: 50% 20% 50% 20%;
+}
+
+.shape-4 {
+  width: 40px;
+  height: 40px;
+  top: 60%;
+  right: 25%;
+  animation-delay: 4.5s;
+  border-radius: 10px;
+  transform: rotate(30deg);
+}
+
+.shape-5 {
+  width: 70px;
+  height: 70px;
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 6s;
+  border-radius: 50% 30% 50% 30%;
+}
+
+/* Floating post cards */
+.floating-post-card {
+  display: block;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  animation: float-card 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+  transform: translateY(var(--float-offset));
+}
+
+.floating-post-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(71, 163, 243, 0.3);
+  transform: translateY(calc(var(--float-offset) - 10px)) scale(1.02);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.post-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .floating-post-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .floating-post-card:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(71, 163, 243, 0.4);
+  }
+
+  .floating-shape {
+    background: linear-gradient(135deg, rgba(71, 163, 243, 0.15), rgba(71, 163, 243, 0.08));
+  }
 }
